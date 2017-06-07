@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String addCustomer(@Validated @ModelAttribute("userForm") User user, BindingResult result, Model model) {
+    public String addCustomer(@Validated @ModelAttribute User user, BindingResult result, Model model) {
         userService.add(user);
         return "redirect:users";
     }
