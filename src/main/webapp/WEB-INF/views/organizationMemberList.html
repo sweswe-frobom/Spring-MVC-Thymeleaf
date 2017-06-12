@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Organization Member List</title>
+</head>
+<body>
+	<h4>
+		<font color="green"> Organization Member List </font>
+	</h4>
+
+	<div th:each="orgMember : ${orgMembers}">
+		<div th:text="${orgMember.name}"></div>
+	</div>
+
+</body>
+</html>

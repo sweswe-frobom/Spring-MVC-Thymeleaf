@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+</head>
+<body>
+	<h4>
+		<font color="green">User Login </font>
+	</h4>
+
+	<font color="red"><p th:text="${session.message}"
+			th:unless="${session == null}">[...]</p> </font>
+
+	<form name="userForm" id="userForm" action="#"
+		th:action="@{/loginuser}" th:object="${user}" method="post">
+		<input type="text" th:field="*{name}" placeholder="Name" /> <input
+			type="text" th:field="*{password}" placeholder="Password" /> <input
+			type="submit" value="login" />
+	</form>
+</body>
+</html>

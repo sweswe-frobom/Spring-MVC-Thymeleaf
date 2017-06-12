@@ -1,11 +1,10 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/beans
  http://www.springframework.org/schema/beans/spring-beans.xsd
  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
- http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" >
+ http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:component-scan base-package="com.amh.pm" />
 
@@ -17,7 +16,6 @@
 	<!-- THYMELEAF-SPECIFIC ARTIFACTS -->
 	<!-- TemplateResolver <- TemplateEngine <- ViewResolver -->
 	<!-- **************************************************************** -->
-
 	<bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
@@ -32,20 +30,32 @@
 	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="templateEngine" />
 	</bean>
-
+	<!-- Dao -->
 	<bean id="userDao" class="com.amh.pm.dao.UserDaoImpl">
 	</bean>
+	<bean id="organizationDao" class="com.amh.pm.dao.OrganizationDaoImpl">
+	</bean>
 
+
+	<!-- Service -->
 	<bean id="userService" class="com.amh.pm.service.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
+
+	<bean id="organizationService" class="com.amh.pm.service.OrganizationServiceImpl">
+		<property name="organizationDao" ref="organizationDao"></property>
+	</bean>
+
+
+
+	<!-- Database Connection -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/pm" />
 		<property name="username" value="root" />
-		<property name="password" value="root1" />
+		<property name="password" value="root" />
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -61,11 +71,21 @@
 		</property>
 	</bean>
 
+	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> 
+		<property name="dataSource1"> <ref bean="dataSource" /> </property> </bean> -->
+
 	<!-- Transactions -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
+
 	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<!-- bind your messages.properties -->
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="messages" />
+	</bean>
 
 </beans>
