@@ -17,12 +17,21 @@
 		<p th:text="${existMember}"></p>
 	</font>
 
-
-
+	<font color="red"><p th:text="${userNameEmptyError}"></p></font>
+ 
 	<form action="#"
 		th:action="@{'/organization/'+${orgId}+'/members/new'}"
 		th:object="${user}" method="post">
+
+		<!-- <font color="red">
+			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		</font> -->
+
 		<table>
+			<tr>
+				<th>Organization Name</th>
+				<td th:text="${orgName}"></td>
+			</tr>
 			<tr>
 				<td>Member Name</td>
 				<td><input type="text" th:field="*{name}"

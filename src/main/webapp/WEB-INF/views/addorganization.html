@@ -11,9 +11,10 @@
 	<h2>ADD New Organization</h2>
 
 
+	<font color="red"><p th:text="${orgError}"></p></font>
 
 
-	<form action="#" th:action="@{/neworganization}"
+	<form action="#" th:action="@{/organizations/new}"
 		th:object="${organization}" method="post">
 
 		<font color="red">

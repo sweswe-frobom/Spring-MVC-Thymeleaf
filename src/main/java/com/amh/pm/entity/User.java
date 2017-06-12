@@ -27,7 +27,7 @@ public class User {
 	private int id;
 
 	@Column(name = "name", nullable = false, unique = true)
-	@NotEmpty(message = "Please fill user name!")
+	@NotEmpty
 	private String name;
 
 	@Column(name = "email", nullable = false, unique = true)
@@ -120,7 +120,6 @@ public class User {
 	 */
 
 	@Override
-
 	public boolean equals(Object object) {
 
 		User user = (User) object;

@@ -76,6 +76,7 @@ public class OrganizationController {
 	public String addOrganizationMember(@PathVariable("id") int id, Model model, HttpServletRequest request) {
 
 		session = request.getSession(false);
+
 		if (session == null) {
 			return "redirect:/login";
 		} else {
@@ -84,6 +85,8 @@ public class OrganizationController {
 			List<User> userNameList = userService.findUserNameByOrgnId(id);
 
 			Organization organizationId = organizationService.findById(id);
+			model.addAttribute("orgName", organizationId.getName());
+
 			int userid = (Integer) session.getAttribute("userId");
 
 			if (organizationId.getOwner().getId() == userid) {
@@ -101,39 +104,50 @@ public class OrganizationController {
 	}
 
 	@RequestMapping(value = "/organization/{id}/members/new", method = RequestMethod.POST)
-	public String addOrganizationMember(@PathVariable("id") int orgid, @ModelAttribute User user, BindingResult result,
-			Model model, HttpServletRequest request) {
+	public String addOrganizationMember(@PathVariable("id") int orgid, @Validated @ModelAttribute User user,
+			BindingResult result, Model model, HttpServletRequest request) {
 
-		User u = userService.findUserIdByName(user.getName());
+		if (user.getName().isEmpty()) {
+			model.addAttribute("userNameEmptyError", "Please Fill User Name");
+			model.addAttribute("orgId", orgid);
 
-		Organization organization = organizationService.findById(orgid);
-
-		session = request.getSession(true);
-
-		if (u == null || organization == null) {
-
-			String noUserName = "User name does not exists.";
-			// session.setAttribute("noNameError", noUserName);
-			model.addAttribute("noNameError", noUserName);
+			addOrganizationMember(orgid, model, request);
+			return "organizationMember";
 
 		} else {
 
-			if (organization.getUserList().contains(u)) {
-				// already exists
-				String member = "Exist Member!";
-				// session.setAttribute("existMember", member);
+			User u = userService.findUserIdByName(user.getName());
 
-				model.addAttribute("existMember", member);
+			Organization organization = organizationService.findById(orgid);
+
+			// session = request.getSession(true);
+
+			if (u == null || organization == null) {
+
+				String noUserName = "User name does not exists.";
+				// session.setAttribute("noNameError", noUserName);
+				model.addAttribute("noNameError", noUserName);
 
 			} else {
-				organization.getUserList().add(u);
-				organizationService.save(organization);
+
+				if (organization.getUserList().contains(u)) {
+					// already exists
+					String member = "Exist Member!";
+					// session.setAttribute("existMember", member);
+
+					model.addAttribute("existMember", member);
+
+				} else {
+					organization.getUserList().add(u);
+					organizationService.save(organization);
+
+				}
 
 			}
+			addOrganizationMember(orgid, model, request);
 
+			return "organizationMember";
 		}
-		addOrganizationMember(orgid, model, request);
-		return "organizationMember";
 
 	}
 
@@ -149,7 +163,7 @@ public class OrganizationController {
 		}
 	}
 
-	@RequestMapping(value = "/neworganization", method = RequestMethod.POST)
+	@RequestMapping(value = "/organizations/new", method = RequestMethod.POST)
 	public String createOrganization(@Validated @ModelAttribute Organization organization, BindingResult result,
 			Model model, HttpServletRequest request) {
 
@@ -169,10 +183,10 @@ public class OrganizationController {
 				String orgerror = "This organization name is already exists:";
 				model.addAttribute("orgError", orgerror);
 				showOrganizationsLists(model, request);
-				return "organizations";
+				return "addorganization";
 			}
 
-			return "redirect:organizations";
+			return "redirect:/organizations";
 		}
 	}
 
