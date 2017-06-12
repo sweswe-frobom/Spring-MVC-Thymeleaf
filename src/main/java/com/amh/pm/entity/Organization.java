@@ -91,9 +91,10 @@ public class Organization {
 		this.userList = userList;
 	}
 
-	/*
-	 * public void addUser(User user) { this.userList.add(user); }
-	 */
+	public void addUser(User user) {
+		this.userList.add(user);
+	}
+
 	/*
 	 * @Override public int hashCode() { int result = 17; result = 31 * result +
 	 * name.hashCode(); result = 31 * result + description.hashCode(); return
