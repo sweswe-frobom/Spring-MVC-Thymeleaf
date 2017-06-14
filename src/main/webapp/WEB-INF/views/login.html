@@ -14,9 +14,23 @@
 
 	<form name="userForm" id="userForm" action="#"
 		th:action="@{/loginuser}" th:object="${user}" method="post">
-		<input type="text" th:field="*{name}" placeholder="Name" /> <input
-			type="text" th:field="*{password}" placeholder="Password" /> <input
-			type="submit" value="login" />
+
+		<table>
+			<tr>
+				<td>User Name</td>
+				<td><input type="text" th:field="*{name}" placeholder="Name" />
+				</td>
+			</tr>
+
+			<tr>
+				<td>Password</td>
+				<td><input type="password" th:field="*{password}"
+					placeholder="Password" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="login" /> <br />
+		<br /> <a href="#" th:href="@{'/registration'}">New User? Register
+			Here</a>
 	</form>
 </body>
 </html>

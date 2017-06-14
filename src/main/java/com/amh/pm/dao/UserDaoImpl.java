@@ -14,91 +14,96 @@ import com.amh.pm.entity.User;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	User u = null;
+    User user = null;
 
-	@Override
-	public void save(User user) {
-		entityManager.persist(user);
-	}
+    @Override
+    public void save(User user) {
+        entityManager.persist(user);
+    }
 
-	@Override
-	public List<User> findAll() {
-		return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
-	}
+    @Override
+    public List<User> findAll() {
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+    }
 
-	@Override
-	public User findById(int id) {
-		return entityManager.find(User.class, id);
-	}
+    @Override
+    public User findById(int id) {
+        return entityManager.find(User.class, id);
+    }
 
-	@Override
-	public List<User> findUserNameByOrgnId(int orgId) {
+    @Override
+    public List<User> findUserNameByOrgnId(int orgId) {
 
-		Query q = entityManager.createQuery("select u from User u JOIN u.orgList orgmlist WHERE orgmlist.id=?");
+        Query q = entityManager.createQuery("select u from User u JOIN u.orgList orgmlist WHERE orgmlist.id=?");
 
-		q.setParameter(1, orgId);
-		List<User> userNameList = q.getResultList();
-		return userNameList;
-	}
+        q.setParameter(1, orgId);
+        List<User> userNames = q.getResultList();
+        return userNames;
+    }
 
-	public User findUserIdByName(String userName) {
+    public User findUserIdByName(String userName) {
 
-		User u = null;
-		try {
-			Query q = entityManager.createQuery("select u from User u WHERE u.name=?");
-			q.setParameter(1, userName);
-			u = (User) q.getSingleResult();
-		} catch (NoResultException e) {
-			System.out.println("Error is :" + e);
-		}
+        User user = null;
+        try {
+            Query q = entityManager.createQuery("select u from User u WHERE u.name=?");
+            q.setParameter(1, userName);
+            user = (User) q.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Error is :" + e);
+        }
 
-		return u;
-	}
+        return user;
+    }
 
-	@Override
-	public void delete(User user) {
+    @Override
+    public void delete(User user) {
 
-		entityManager.remove(user);
-		user = entityManager.find(User.class, 1);
-		System.out.println("User after removal :- " + user);
-	}
+        entityManager.remove(user);
+        user = entityManager.find(User.class, 1);
+        System.out.println("User after removal :- " + user);
+    }
 
-	@Override
-	public void update(User user) {
+    @Override
+    public void update(User user) {
 
-		user.setName("Hla Hla");
-		System.out.println("User name after updation :- " + user);
+        user.setName("Hla Hla");
+        System.out.println("User name after updation :- " + user);
+    }
 
-	}
+    @Override
 
-	@Override
+    public User userByName(String name, String password) {
+        try {
+            Query q = entityManager.createQuery("SELECT u FROM User u WHERE u.name=? AND u.password=?");
 
-	public User userByName(String name, String password) {
+            q.setParameter(1, name);
 
-		// TODO Auto-generated method stub
+            q.setParameter(2, password);
 
-		try {
+            user = (User) q.getSingleResult();
 
-			Query q = entityManager.createQuery("SELECT u FROM User u WHERE u.name=? AND u.password=?");
+        } catch (NoResultException e) {
+            System.out.println(e);
+            // TODO: handle exception
+        }
+        return user;
+    }
 
-			q.setParameter(1, name);
+    @Override
+    public User findUserByEmail(String userEmail) {
+        try {
+            Query q = entityManager.createQuery("SELECT u FROM User u WHERE u.email=?");
 
-			q.setParameter(2, password);
+            q.setParameter(1, userEmail);
 
-			u = (User) q.getSingleResult();
+            user = (User) q.getSingleResult();
 
-		} catch (NoResultException e) {
-
-			System.out.println(e);
-
-			// TODO: handle exception
-
-		}
-
-		return u;
-
-	}
+        } catch (NoResultException e) {
+            System.out.println(e);
+        }
+        return user;
+    }
 }

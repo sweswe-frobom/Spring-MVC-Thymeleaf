@@ -33,10 +33,11 @@ public class User {
 	@Column(name = "email", nullable = false, unique = true)
 	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\." + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
 			+ "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid Email!")
+	@NotEmpty
 	private String email;
 
 	@Column(name = "password", nullable = false, unique = false)
-	@NotEmpty(message = "Please fill password!")
+	@NotEmpty
 	@Size(min = 3, max = 80, message = "Password should be length between 3 and 80!")
 	private String password;
 
@@ -44,8 +45,9 @@ public class User {
 	@JoinTable(name = "OrganizationMember", joinColumns = @JoinColumn(name = "userId ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "organizationId ", referencedColumnName = "id"))
 	private List<Organization> orgList;
 
-	@OneToMany(mappedBy = "user")
-	private List<ProjectMember> project;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ProjectMember", joinColumns = @JoinColumn(name = "userId ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "projectId ", referencedColumnName = "id"))
+	private List<Project> projects;
 
 	public User() {
 		super();
@@ -90,12 +92,13 @@ public class User {
 		this.password = password;
 	}
 
-	public List<ProjectMember> getProject() {
-		return project;
+	
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setProject(List<ProjectMember> project) {
-		this.project = project;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	public List<Organization> getOrgList() {

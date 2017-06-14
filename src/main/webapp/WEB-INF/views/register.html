@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Register</title>
+</head>
+<body>
+	<h4>
+		<font color="green">User Registration </font>
+	</h4>
+
+	<font color="red"><p th:text="${userNameDuplicateError}"></p></font>
+	<font color="red"><p th:text="${userEmailDuplicateError}"></p></font>
+	<font color="red"><p th:text="${userDuplicateError}"></p></font>
+
+	<form action="#" th:action="@{/registrationuser}" th:object="${user}"
+		method="post">
+
+		<font color="red">
+			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		</font> <font color="red">
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+		</font> <font color="red">
+			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+		</font>
+
+		<table>
+			<tr>
+				<td>User Name</td>
+				<td><input type="text" th:field="*{name}"
+					placeholder="User Name" /></td>
+			</tr>
+
+			<tr>
+				<td>Email</td>
+				<td><input type="text" th:field="*{email}" placeholder="Email" />
+				</td>
+			</tr>
+
+			<tr>
+				<td>Password</td>
+				<td><input type="password" th:field="*{password}"
+					placeholder="Password" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="Register" />
+	</form>
+</body>
+</html>

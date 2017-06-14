@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Projects List</title>
+</head>
+<body>
+	<h4>
+		<font color="green"> Projects List </font>
+	</h4>
+
+	Projects:
+	<div th:each="projectName : ${projectNames}">
+		<div th:text="${projectName.name}"></div>
+	</div>
+
+</body>
+</html>

@@ -65,11 +65,14 @@ public class OrganizationController {
 					organizationNotOwner.add(organization);
 				}
 			}
+			
 			model.addAttribute("organizationsNotOwner", organizationNotOwner);
 			model.addAttribute("organizationsOwners", organizationOwner);
 
 			return "organizations";
+			
 		}
+		
 	}
 
 	@RequestMapping(value = "/organization/{id}/members", method = RequestMethod.GET)
@@ -140,7 +143,6 @@ public class OrganizationController {
 				} else {
 					organization.getUserList().add(u);
 					organizationService.save(organization);
-
 				}
 
 			}
@@ -148,7 +150,6 @@ public class OrganizationController {
 
 			return "organizationMember";
 		}
-
 	}
 
 	@RequestMapping(value = "/organizations/new", method = RequestMethod.GET)
