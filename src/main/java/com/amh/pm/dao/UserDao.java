@@ -18,7 +18,7 @@ public interface UserDao {
 
     public User userByName(String name, String password);
 
-    public List<User> findUserNameByOrgnId(int orgId);
+    public List<User> findUserNameByOrgnizationId(int organizationId);
 
     public User findUserIdByName(String userName);
 

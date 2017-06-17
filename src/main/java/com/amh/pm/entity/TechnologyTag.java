@@ -17,68 +17,68 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table
 public class TechnologyTag {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@Column(name = "name", nullable = false, unique = true)
-	@NotEmpty(message = "Please fill technology tag name!")
-	private String name;
+    @Column(name = "name", nullable = false, unique = true)
+    @NotEmpty(message = "Please fill technology tag name!")
+    private String name;
 
-	@ManyToMany
-	@JoinTable(name = "TaskTechnologyTag", joinColumns = @JoinColumn(name = "technologyTag ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "taskId ", referencedColumnName = "id"))
-	private List<Task> task;
+    @ManyToMany
+    @JoinTable(name = "TaskTechnologyTag", joinColumns = @JoinColumn(name = "technologyTag ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "taskId ", referencedColumnName = "id"))
+    private List<Task> tasks;
 
-	public TechnologyTag() {
-		super();
-	}
+    public TechnologyTag() {
+        super();
+    }
 
-	public TechnologyTag(String name) {
-		super();
-		this.name = name;
+    public TechnologyTag(String name) {
+        super();
+        this.name = name;
 
-	}
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<Task> getTask() {
-		return task;
-	}
+    public List<Task> getTasks() {
+        return tasks;
+    }
 
-	public void setTask(List<Task> task) {
-		this.task = task;
-	}
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
-	@Override
-	public int hashCode() {
-		int result = 17;
-		result = 31 * result + name.hashCode();
-		return result;
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + name.hashCode();
+        return result;
 
-	}
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (!(obj instanceof TaskNote))
-			return false;
-		TechnologyTag techTag = (TechnologyTag) obj;
-		return techTag.getName() == this.getName();
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (!(obj instanceof TaskNote))
+            return false;
+        TechnologyTag techTag = (TechnologyTag) obj;
+        return techTag.getName() == this.getName();
 
-	}
+    }
 }

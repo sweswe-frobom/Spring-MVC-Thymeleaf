@@ -6,17 +6,17 @@ import com.amh.pm.entity.Organization;
 
 public interface OrganizationService {
 
-	public void save(Organization organ);
+	public void save(Organization organization);
 
-	public void delete(Organization organ);
+	public void delete(Organization organization);
 
-	public void update(Organization organ);
+	public void update(Organization organization);
 
 	public List<Organization> findAll();
 
-	public Organization findById(int organId);
+	public Organization findById(int organizationId);
 
 	// public List<Integer> findUserIdByOrgnId(int orgId);
-	public Organization findOrganizationByName(String orgName);
+	public Organization findOrganizationByName(String organizationName);
 
 }

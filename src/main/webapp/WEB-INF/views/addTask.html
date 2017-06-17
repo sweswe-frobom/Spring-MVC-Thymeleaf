@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Task</title>
+
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	$(document).ready(function() {
+		$(".datepicker").datepicker();
+	});
+	/*]]>*/
+</script>
+</head>
+
+<body>
+
+	<h4>
+		<font color="green"> Add Task </font>
+	</h4>
+
+	<font color="red"><p th:text="${dateEmptyError}"></p></font>
+	<font color="red"><p th:text="${TaskdateError1}"></p></font>
+	<font color="red"><p th:text="${TaskdateError2}"></p></font>
+	<font color="red"><p th:text="${TaskdateError3}"></p></font>
+	<font color="red"><p th:text="${TaskdateError4}"></p></font>
+	<font color="red"><p th:text="${TaskdateError5}"></p></font>
+	<font color="red"><p th:text="${TaskdateError6}"></p></font>
+	<font color="red"><p th:text="${TaskdateError7}"></p></font>
+	<font color="red"><p th:text="${assigneeEmptyError}"></p></font>
+
+	<form action="#"
+		th:action="@{'/organizations/'+${organizationId}+'/projects/'+${projectId}+'/tasks/new'}"
+		th:object="${task}" method="post" name="taskForm" id="taskForm">
+
+
+		<font color="red">
+			<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+		</font> <font color="red">
+			<p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
+		</font> <font color="red">
+			<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></p>
+		</font>
+
+		<table>
+			<tr>
+				<td>Title</td>
+				<td><input type="text" th:field="*{title}"
+					placeholder="Enter Title" /></td>
+			</tr>
+
+			<tr>
+				<td>Summary</td>
+				<td><input type="text" th:field="*{summary}"
+					placeholder="Enter Summary" /></td>
+			</tr>
+
+			<tr>
+				<td>Schedule Start Date</td>
+				<td><input type="text" th:field="*{scheduleStartDate}"
+					placeholder="Enter Schedule Start Date" class="datepicker" /></td>
+			</tr>
+
+			<tr>
+				<td>Schedule End Date</td>
+				<td><input type="text" th:field="*{scheduleEndDate}"
+					placeholder="Enter Schedule End Date" class="datepicker" /></td>
+			</tr>
+
+			<tr>
+				<td>Actual Start Date</td>
+				<td><input type="text" th:field="*{actualStartDate}"
+					placeholder="Enter Actual Start Date" class="datepicker" /></td>
+			</tr>
+
+			<tr>
+				<td>Actual End Date</td>
+				<td><input type="text" th:field="*{actualEndDate}"
+					placeholder="Enter Actual End Date" class="datepicker" /></td>
+			</tr>
+
+			<tr>
+				<td>Status</td>
+				<td><input type="text" th:field="*{status}"
+					placeholder="Enter Status" /></td>
+			</tr>
+
+			<tr>
+				<td>Assignee</td>
+				<td><select th:field="*{assignee}" name="assigneeUserId">
+						<option value="default">Select Member</option>
+						<option th:each="userName : ${userNames}"
+							th:value="${userName.id}" th:text="${userName.name}" />
+				</select></td>
+			</tr>
+
+
+			<tr>
+				<td>Weight</td>
+				<td><input type="text" th:field="*{weight}"
+					placeholder="Enter Weight" /></td>
+			</tr>
+
+			<tr>
+				<td>Score</td>
+				<td><input type="text" th:field="*{score}"
+					placeholder="Enter Score" /></td>
+			</tr>
+
+		</table>
+		<input type="submit" value="ADD Task" />
+	</form>
+</body>
+</html>

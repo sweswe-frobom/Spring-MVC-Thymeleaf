@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tasks List</title>
+</head>
+<body>
+
+	<a href="#"
+		th:href="@{'/organizations/'+${organizationId}+'/projects/'+${projectId}+'/tasks/new'}">New
+		Task</a>
+	<br />
+	<h4>
+		<font color="green"> Tasks List </font>
+	</h4>
+
+	<br />
+	<table>
+		<tr th:each="taskTitle : ${taskTitles}">
+
+			<td><a href="#"
+				th:href="@{'/organizations/'+${organizationId}+'/projects/'+${projectId}+'/tasks/'+${taskTitle.id}}"><div
+						th:text="${taskTitle.title}"></div></a></td>
+		</tr>
+	</table>
+
+
+</body>
+</html>

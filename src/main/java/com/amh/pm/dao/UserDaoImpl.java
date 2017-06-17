@@ -35,11 +35,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUserNameByOrgnId(int orgId) {
+    public List<User> findUserNameByOrgnizationId(int organizationId) {
 
-        Query q = entityManager.createQuery("select u from User u JOIN u.orgList orgmlist WHERE orgmlist.id=?");
+        Query q = entityManager.createQuery("select u from User u JOIN u.organizations orgmlist WHERE orgmlist.id=?");
 
-        q.setParameter(1, orgId);
+        q.setParameter(1, organizationId);
         List<User> userNames = q.getResultList();
         return userNames;
     }

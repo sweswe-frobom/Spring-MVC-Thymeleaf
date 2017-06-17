@@ -100,5 +100,4 @@ public class UserController {
         model.addAttribute("user", userService.findById(id));
         return "userDetails";
     }
-
 }

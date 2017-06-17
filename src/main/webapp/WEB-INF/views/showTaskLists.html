@@ -2,15 +2,16 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Projects List</title>
+<title>Tasks List</title>
 </head>
 <body>
 	<h4>
-		<font color="green"> Projects List </font>
+		<font color="green"> Tasks List </font>
 	</h4>
 
-	<div th:each="projectName : ${projectNames}">
-		<div th:text="${projectName.name}"></div>
+	Projects:
+	<div th:each="taskTitle : ${taskTitles}">
+		<div th:text="${taskTitle.title}"></div>
 	</div>
 
 </body>

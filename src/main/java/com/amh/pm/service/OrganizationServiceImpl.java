@@ -21,21 +21,21 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	@Transactional
-	public void save(Organization organ) {
-		organizationDao.save(organ);
+	public void save(Organization organization) {
+		organizationDao.save(organization);
 
 	}
 
 	@Override
 	@Transactional
-	public void delete(Organization organ) {
+	public void delete(Organization organization) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	@Transactional
-	public void update(Organization organ) {
+	public void update(Organization organization) {
 		// TODO Auto-generated method stub
 
 	}
@@ -49,14 +49,14 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	@Transactional
-	public Organization findById(int organId) {
-		return organizationDao.findById(organId);
+	public Organization findById(int organizationId) {
+		return organizationDao.findById(organizationId);
 	}
 
 	@Override
 	@Transactional
-	public Organization findOrganizationByName(String orgName) {
-		return organizationDao.findOrganizationByName(orgName);
+	public Organization findOrganizationByName(String organizationName) {
+		return organizationDao.findOrganizationByName(organizationName);
 	}
 
 }

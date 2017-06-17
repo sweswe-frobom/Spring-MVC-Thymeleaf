@@ -37,6 +37,8 @@
 	</bean>
 	<bean id="projectDao" class="com.amh.pm.dao.ProjectDaoImpl">
 	</bean>
+	<bean id="taskDao" class="com.amh.pm.dao.TaskDaoImpl">
+	</bean>
 
 
 	<!-- Service -->
@@ -50,6 +52,10 @@
 	
 	<bean id="projectService" class="com.amh.pm.service.ProjectServiceImpl">
 		<property name="projectDao" ref="projectDao"></property>
+	</bean>
+	
+	<bean id="taskService" class="com.amh.pm.service.TaskServiceImpl">
+		<property name="taskDao" ref="taskDao"></property>
 	</bean>
 
 

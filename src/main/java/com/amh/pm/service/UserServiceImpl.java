@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<User> findUserNameByOrgnId(int orgId) {
-        return userDao.findUserNameByOrgnId(orgId);
+    public List<User> findUserNameByOrgnizationId(int orgId) {
+        return userDao.findUserNameByOrgnizationId(orgId);
     }
 
     @Override

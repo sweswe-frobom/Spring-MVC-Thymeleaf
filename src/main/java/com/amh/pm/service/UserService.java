@@ -18,7 +18,7 @@ public interface UserService {
 
     public User userByName(String name, String password);
 
-    public List<User> findUserNameByOrgnId(int orgId);
+    public List<User> findUserNameByOrgnizationId(int orgId);
 
     public User findUserIdByName(String userName);
 

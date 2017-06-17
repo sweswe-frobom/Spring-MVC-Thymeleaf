@@ -14,206 +14,202 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table
 public class Task {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@Column(name = "title", nullable = false, unique = false)
-	@NotEmpty(message = "Please fill task title!")
-	private String title;
+    @Column(name = "title", nullable = false, unique = false)
+    @NotEmpty(message = "Please fill task title!")
+    private String title;
 
-	@Column(name = "summary", nullable = false, unique = false)
-	@NotEmpty(message = "Please fill project summary!")
-	private String summary;
+    @Column(name = "summary", nullable = false, unique = false)
+    @NotEmpty(message = "Please fill project summary!")
+    private String summary;
 
-	@Column(name = "scheduleStartDate", nullable = false, unique = false)
-	private Date scheduleStartDate;
+    @Column(name = "scheduleStartDate", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date scheduleStartDate;
 
-	@Column(name = "scheduleEndDate", nullable = false, unique = false)
-	private Date scheduleEndDate;
+    @Column(name = "scheduleEndDate", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date scheduleEndDate;
 
-	@Column(name = "actualStartDate", nullable = false, unique = false)
-	private Date actualStartDate;
+    @Column(name = "actualStartDate", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date actualStartDate;
 
-	@Column(name = "actualEndDate", nullable = false, unique = false)
-	private Date actualEndDate;
+    @Column(name = "actualEndDate", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date actualEndDate;
 
-	@Column(name = "status", nullable = false, unique = false)
-	@NotEmpty(message = "Please fill task status!")
-	private String status;
+    @Column(name = "status", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @NotEmpty(message = "Please fill task status!")
+    private String status;
 
-	@ManyToOne
-	private Project project;
+    @ManyToOne
+    private Project project;
 
-	@ManyToOne
-	private User assignee;
+    @ManyToOne
+    private User assignee;
 
-	@Column(name = "weight", nullable = false, unique = false)
-	@NotEmpty(message = "Please fill weight!")
-	private String weight;
+    @Column(name = "weight", nullable = false, unique = false)
+    private int weight;
 
-	@Column(name = "score", nullable = false, unique = false)
-	@NotEmpty(message = "Please fill score!")
-	private String score;
+    @Column(name = "score", nullable = false, unique = false)
+    private int score;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "TaskTechnologyTag", joinColumns = @JoinColumn(name = "taskId ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "technologyTag ", referencedColumnName = "id"))
-	private List<TechnologyTag> technologyTag;
+    @Column(name = "progress", nullable = false, unique = false)
+    private int progress;
 
-	public Task() {
-		super();
-	}
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "TaskTechnologyTag", joinColumns = @JoinColumn(name = "taskId ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "technologyTag ", referencedColumnName = "id"))
+    private List<TechnologyTag> technologyTag;
 
-	public Task(String title, String summary, Date scheduleStartDate, Date scheduleEndDate, Date actualStartDate,
-			Date actualEndDate, String weight, String score) {
-		super();
-		this.title = title;
-		this.summary = summary;
-		this.scheduleStartDate = scheduleStartDate;
-		this.scheduleEndDate = scheduleEndDate;
-		this.actualStartDate = actualStartDate;
-		this.actualEndDate = actualEndDate;
-		this.weight = weight;
-		this.score = score;
-	}
+    public Task() {
+        super();
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Task(String title, String summary, Date scheduleStartDate, Date scheduleEndDate, Date actualStartDate, Date actualEndDate, int weight, int score, int progress) {
+        super();
+        this.title = title;
+        this.summary = summary;
+        this.scheduleStartDate = scheduleStartDate;
+        this.scheduleEndDate = scheduleEndDate;
+        this.actualStartDate = actualStartDate;
+        this.actualEndDate = actualEndDate;
+        this.weight = weight;
+        this.score = score;
+        this.progress = progress;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getSummary() {
-		return summary;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
+    public String getSummary() {
+        return summary;
+    }
 
-	public Date getScheduleStartDate() {
-		return scheduleStartDate;
-	}
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
-	public void setScheduleStartDate(Date scheduleStartDate) {
-		this.scheduleStartDate = scheduleStartDate;
-	}
+    public Date getScheduleStartDate() {
+        return scheduleStartDate;
+    }
 
-	public Date getScheduleEndDate() {
-		return scheduleEndDate;
-	}
+    public void setScheduleStartDate(Date scheduleStartDate) {
+        this.scheduleStartDate = scheduleStartDate;
+    }
 
-	public void setScheduleEndDate(Date scheduleEndDate) {
-		this.scheduleEndDate = scheduleEndDate;
-	}
+    public Date getScheduleEndDate() {
+        return scheduleEndDate;
+    }
 
-	public Date getActualStartDate() {
-		return actualStartDate;
-	}
+    public void setScheduleEndDate(Date scheduleEndDate) {
+        this.scheduleEndDate = scheduleEndDate;
+    }
 
-	public void setActualStartDate(Date actualStartDate) {
-		this.actualStartDate = actualStartDate;
-	}
+    public Date getActualStartDate() {
+        return actualStartDate;
+    }
 
-	public Date getActualEndDate() {
-		return actualEndDate;
-	}
+    public void setActualStartDate(Date actualStartDate) {
+        this.actualStartDate = actualStartDate;
+    }
 
-	public void setActualEndDate(Date actualEndDate) {
-		this.actualEndDate = actualEndDate;
-	}
+    public Date getActualEndDate() {
+        return actualEndDate;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setActualEndDate(Date actualEndDate) {
+        this.actualEndDate = actualEndDate;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Project getProject() {
-		return project;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setProject(Project project) {
-		this.project = project;
-	}
+    public Project getProject() {
+        return project;
+    }
 
-	public User getAssignee() {
-		return assignee;
-	}
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
-	public void setAssignee(User assignee) {
-		this.assignee = assignee;
-	}
+    public User getAssignee() {
+        return assignee;
+    }
 
-	public String getWeight() {
-		return weight;
-	}
+    public void setAssignee(User assignee) {
+        this.assignee = assignee;
+    }
 
-	public void setWeight(String weight) {
-		this.weight = weight;
-	}
+    public int getWeight() {
+        return weight;
+    }
 
-	public String getScore() {
-		return score;
-	}
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
-	public void setScore(String score) {
-		this.score = score;
-	}
+    public int getScore() {
+        return score;
+    }
 
-	public List<TechnologyTag> getTechnologyTag() {
-		return technologyTag;
-	}
+    public void setScore(int score) {
+        this.score = score;
+    }
 
-	public void setTechnologyTag(List<TechnologyTag> technologyTag) {
-		this.technologyTag = technologyTag;
-	}
+    public int getProgress() {
+        return progress;
+    }
 
-	@Override
-	public int hashCode() {
-		int result = 17;
-		result = 31 * result + title.hashCode();
-		result = 31 * result + summary.hashCode();
-		result = 31 * result + scheduleStartDate.hashCode();
-		result = 31 * result + scheduleEndDate.hashCode();
-		result = 31 * result + actualStartDate.hashCode();
-		result = 31 * result + actualEndDate.hashCode();
-		result = 31 * result + weight.hashCode();
-		result = 31 * result + score.hashCode();
-		return result;
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
 
-	}
+    public List<TechnologyTag> getTechnologyTag() {
+        return technologyTag;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (!(obj instanceof Task))
-			return false;
-		Task task = (Task) obj;
-		return task.getTitle() == this.getTitle() && task.getSummary() == this.getSummary()
-				&& task.getScheduleStartDate() == this.getScheduleStartDate()
-				&& task.getScheduleEndDate() == this.getScheduleEndDate()
-				&& task.getActualStartDate() == this.getActualStartDate()
-				&& task.getActualEndDate() == this.getActualEndDate() && task.getWeight() == this.getWeight()
-				&& task.getScore() == this.getScore();
+    public void setTechnologyTag(List<TechnologyTag> technologyTag) {
+        this.technologyTag = technologyTag;
+    }
 
-	}
-
+    /*
+     * @Override public int hashCode() { int result = 17; result = 31 * result + title.hashCode(); result = 31 * result +
+     * summary.hashCode(); result = 31 * result + scheduleStartDate.hashCode(); result = 31 * result +
+     * scheduleEndDate.hashCode(); result = 31 * result + actualStartDate.hashCode(); result = 31 * result +
+     * actualEndDate.hashCode(); result = 31 * result + weight.hashCode(); result = 31 * result + score.hashCode(); return
+     * result; }
+     * @Override public boolean equals(Object obj) { if (obj == this) return true; if (!(obj instanceof Task)) return false;
+     * Task task = (Task) obj; return task.getTitle() == this.getTitle() && task.getSummary() == this.getSummary() &&
+     * task.getScheduleStartDate() == this.getScheduleStartDate() && task.getScheduleEndDate() == this.getScheduleEndDate() &&
+     * task.getActualStartDate() == this.getActualStartDate() && task.getActualEndDate() == this.getActualEndDate() &&
+     * task.getWeight() == this.getWeight() && task.getScore() == this.getScore(); }
+     */
 }

@@ -5,20 +5,26 @@
 <title>Projects List</title>
 </head>
 <body>
+
+	<a href="#"
+		th:href="@{'/organizations/'+${organizationId}+'/projects/new'}">New
+		Project</a>
+
+	<br />
 	<h4>
 		<font color="green"> Projects List </font>
 	</h4>
 
-	<a href="#"
-		th:href="@{'/organizations/'+${organizationId}+'/projects/new'}">New
-		Organization</a>
+	<table>
+		<tr th:each="projectName : ${projectNames}">
 
-	<br />
-	<br /> Projects:
+			<td th:text="${projectName.name}"></td>
 
-	<div th:each="projectName : ${projectNames}">
-		<div th:text="${projectName.name}"></div>
-	</div>
+			<td><a href="#"
+				th:href="@{'/organizations/'+${organizationId}+'/projects/'+${projectName.id}+'/tasks'}">Tasks</a></td>
+		</tr>
+	</table>
+
 
 </body>
 </html>

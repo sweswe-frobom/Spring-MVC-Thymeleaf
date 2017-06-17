@@ -38,7 +38,7 @@ public class Organization {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "OrganizationMember", joinColumns = @JoinColumn(name = "organizationId ", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "userId ", referencedColumnName = "id"))
-	private List<User> userList;
+	private List<User> users;
 
 	public Organization() {
 		super();
@@ -83,16 +83,17 @@ public class Organization {
 		this.owner = owner;
 	}
 
-	public List<User> getUserList() {
-		return userList;
-	}
+	
+	public List<User> getUsers() {
+        return users;
+    }
 
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
-	}
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
-	public void addUser(User user) {
-		this.userList.add(user);
+    public void addUser(User user) {
+		this.users.add(user);
 	}
 
 	/*
